@@ -11,8 +11,8 @@
 
   <body>
     <nav class="text-right p-4">
-      <% if @user %>
-        Logged in as <%=@user.username%>
+      <% if current_user %>
+        Logged in as <%=current_user.username%>
         <a class="poetry" href="/logout">Logout</a>
       <% else %>
         <a class="poetry" href="/login">Login</a>
