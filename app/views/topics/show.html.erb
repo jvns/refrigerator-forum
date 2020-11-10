@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class="text-4xl text-bold text-center"> <%= @topic.title %> </h1>
+
+<div class="flex">
+<div class="m-auto">
+<% @posts.each do |post| %>
+  <%= post.user.username %>
+  <%= post.text %>
+<% end %>
+
+<%= form_with scope: :post, url: posts_path, local: true do |form| %>
+  <p>
+    <%= form.label :text %><br>
+    <%= form.text_area :text %> <br>
+    <%= hidden_field(:topic, :id) %>
+    <%= form.submit %>
+  </p>
+<% end %>
+
+</div>
+</div>
+
+<%= link_to 'Edit', edit_topic_path(@topic) %> |
+<%= link_to 'Back', topics_path %>
