@@ -10,6 +10,15 @@
   </head>
 
   <body>
+    <nav class="text-right p-4">
+      <% if @user %>
+        Logged in as <%=@user.username%>
+        <a class="poetry" href="/logout">Logout</a>
+      <% else %>
+        <a class="poetry" href="/login">Login</a>
+        <a class="poetry" href="/signup">Sign up</a>
+      <% end %>
+    </nav>
     <%= yield %>
   </body>
 </html>
