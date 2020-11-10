@@ -4,7 +4,24 @@
   <script>
   $( function() {
     $( ".draggable" ).draggable({ containment: "#post-box", scroll: false });
+    $('#new_post').on('ajax:before', function(event, xhr, status, error) {
+      let canvasRect = document.querySelector('#canvas').getBoundingClientRect()
+      let words = [];
+      for (x of $('.draggable')) {
+          let rect = x.getBoundingClientRect();
+          let word = {
+            text: x.innerText,
+            top: rect.top - canvasRect.top,
+            left: rect.left - canvasRect.left
+          }
+          if (word.top > 0 && word.left > 0 && word.top < canvasRect.height && word.left < canvasRect.width) {
+            words.push(word)
+          }
+      }
+      document.querySelector('#poetry').value = JSON.stringify(words);
+    });
   } );
+  
   </script>
 <div class="flex">
   <div class="m-auto max-w-screen-md w-full">
@@ -22,7 +39,7 @@
       </div>
       <div class="flex bg-gray-200 p-2">
         <div class="text-left">by <%= link_to post.user.username, user_path(post.user) %> </div>
-        <%= link_to 'Destroy', post, :method => :delete, :confirm => "Are you sure?" %>
+        <div class="px-4"><%= link_to 'delete', post, :method => :delete, :confirm => "Are you sure?" %></div>
         <div class="text-right flex-grow"> <%= post.created_at.to_s(:short) %> </div>
       </div>
   <% end %>
@@ -36,8 +53,9 @@
   <% end %>
 </div>
 
-<%= form_with scope: :post, url: posts_path do |form| %>
+<%= form_with scope: :post, id: 'new_post', url: posts_path do |form| %>
   <p class="py-8">
+    <input type="hidden" name="post[text]" id="poetry" />
     <%= hidden_field(:topic, :id) %>
     <%= form.submit "Save post" %>
   </p>
