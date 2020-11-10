@@ -4,7 +4,7 @@
   <script>
   $( function() {
     $( ".draggable" ).draggable({ containment: "#post-box", scroll: false });
-    $('#new_post').on('ajax:before', function(event, xhr, status, error) {
+    $('#new_post').submit(function() {
       let canvasRect = document.querySelector('#canvas').getBoundingClientRect()
       let words = [];
       for (x of $('.draggable')) {
@@ -19,21 +19,30 @@
           }
       }
       document.querySelector('#poetry').value = JSON.stringify(words);
+      return true;
     });
   } );
   
   </script>
 <div class="flex">
-  <div class="m-auto max-w-screen-md w-full">
+  <div class="m-auto max-w-screen-md w-full " style="width: 300px">
   <% @posts.each do |post| %>
-      <div class="pt-1 bg-white relative" style="height: 300px; width: 300px;">
+    <div class="pt-1 relative" style="
+                              height: 300px;
+                              width: 300px;
+                              /*
+                              background: #eee;
+                              background-image: url('/egg-shell.png');
+                              background-size: 400px; */
+                              
+                ">
       <% JSON.load(post.text).each do |word| %>
           <span class="poetry absolute" style="top: <%=word['top']%>px; left: <%=word['left']%>px;">
             <%= word['text'] %>
           </span>
       <% end %>
       </div>
-      <div class="flex bg-gray-200 p-2">
+      <div class="flex bg-gray-700 p-2 text-white">
         <div class="text-left">by <%= link_to post.user.username, user_path(post.user) %> </div>
         <div class="px-4"><%= link_to 'delete', post, :method => :delete, :confirm => "Are you sure?" %></div>
         <div class="text-right flex-grow"> <%= post.created_at.to_s(:short) %> </div>
@@ -41,15 +50,15 @@
   <% end %>
 
 
-<div id="post-box" class="relative" style="height: 350px">
-  <div id="canvas" style="width: 300px; height: 300px; position: absolute; left: 20px; top: 20px; border: 1px dashed black;">
-  </div>
+<div id="post-box" class="relative">
   <% @words.each do |word| %>
     <div class="draggable poetry cursor-pointer m-2" ><%= word %> </div>
   <% end %>
+  <div id="canvas" style="width: 300px; height: 300px; border: 1px dashed black;">
+  </div>
 </div>
 
-<%= form_with scope: :post, id: 'new_post', url: posts_path do |form| %>
+<%= form_with scope: :post, local: true, id: 'new_post', url: posts_path do |form| %>
   <p class="py-8">
     <input type="hidden" name="post[text]" id="poetry" />
     <%= hidden_field(:topic, :id) %>
