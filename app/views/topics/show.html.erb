@@ -1,20 +1,46 @@
 <p id="notice"><%= notice %></p>
 
 <h1 class="text-4xl text-bold text-center"> <%= @topic.title %> </h1>
-
+  <script src="/js/jquery.js"></script>
+  <script src="/js/jquery-ui.min.js"></script>
+  <script>
+  $( function() {
+    $( ".draggable" ).draggable({ containment: "#post-box", scroll: false });
+  } );
+  </script>
 <div class="flex">
-<div class="m-auto">
-<% @posts.each do |post| %>
-  <%= post.user.username %>
-  <%= post.text %>
-<% end %>
+  <div class="m-auto max-w-screen-md w-full">
+  <% @posts.each do |post| %>
+      <div class="p-4">
+        <% post.text.split("\n") do |line| %>
+          <div class="pt-1">
+          <% line.split do |word| %>
 
-<%= form_with scope: :post, url: posts_path, local: true do |form| %>
-  <p>
-    <%= form.label :text %><br>
-    <%= form.text_area :text %> <br>
+          <span class="poetry"> <%= word %> </span>
+          <% end %>
+          </div>
+        <% end %>
+
+      </div>
+      <div class="flex bg-gray-200 p-2">
+        <div class="text-left">by <%= link_to post.user.username, user_path(post.user) %> </div>
+        <div class="text-right flex-grow"> <%= post.created_at.to_s(:short) %> </div>
+      </div>
+  <% end %>
+
+
+<div id="post-box" class="relative" style="height: 350px">
+  <div id="canvas" style="width: 300px; height: 300px; position: absolute; left: 20px; top: 20px; border: 1px dashed black;">
+  </div>
+  <% @words.each do |word| %>
+    <div class="draggable poetry cursor-pointer m-2" ><%= word %> </div>
+  <% end %>
+</div>
+
+<%= form_with scope: :post, url: posts_path do |form| %>
+  <p class="py-8">
     <%= hidden_field(:topic, :id) %>
-    <%= form.submit %>
+    <%= form.submit "Save post" %>
   </p>
 <% end %>
 

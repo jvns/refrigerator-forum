@@ -17,4 +17,12 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
   end
+
+  def delete
+    @post = Post.find(params[:id]).preload(:topic)
+    if @post.user_id != current_user.id
+      flash[:notice] = "This isn't your post!"
+      redirect_to @post.topic
+    end
+  end
 end

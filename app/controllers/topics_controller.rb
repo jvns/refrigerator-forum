@@ -11,6 +11,7 @@ class TopicsController < ApplicationController
   # GET /topics/1.json
   def show
     @posts = @topic.posts.order(created_at: :asc).preload(:user)
+    @words = ['give', 'grandpa', 'berries']
   end
 
   # GET /topics/new
