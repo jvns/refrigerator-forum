@@ -9,7 +9,7 @@ class PostsController < ApplicationController
     end
     @post = Post.new(params.require(:post).permit(:title, :text))
     @post.user_id = current_user.id
-
+    @post.topic_id = params.require(:topic).require(:id)
     @post.save
     redirect_to @post
   end
