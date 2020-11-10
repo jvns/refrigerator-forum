@@ -1,8 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <h1 class="text-4xl text-bold text-center"> <%= @topic.title %> </h1>
-  <script src="/js/jquery.js"></script>
-  <script src="/js/jquery-ui.min.js"></script>
   <script>
   $( function() {
     $( ".draggable" ).draggable({ containment: "#post-box", scroll: false });
@@ -24,6 +22,7 @@
       </div>
       <div class="flex bg-gray-200 p-2">
         <div class="text-left">by <%= link_to post.user.username, user_path(post.user) %> </div>
+        <%= link_to 'Destroy', post, :method => :delete, :confirm => "Are you sure?" %>
         <div class="text-right flex-grow"> <%= post.created_at.to_s(:short) %> </div>
       </div>
   <% end %>
