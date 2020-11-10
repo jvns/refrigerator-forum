@@ -1,10 +1,10 @@
 .poetry {
-    border: 1px solid black;
+    border-right: 3px solid black;
+    border-bottom: 3px solid black;
     background: #eee;
     display: inline-block;
     padding: .3em;
     margin: .05em;
-    box-shadow: 0 0.1em black;
 }
 
 body {

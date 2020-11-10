@@ -11,8 +11,8 @@
           let rect = x.getBoundingClientRect();
           let word = {
             text: x.innerText,
-            top: rect.top - canvasRect.top,
-            left: rect.left - canvasRect.left
+            top: Math.round(rect.top - canvasRect.top),
+            left: Math.round(rect.left - canvasRect.left)
           }
           if (word.top > 0 && word.left > 0 && word.top < canvasRect.height && word.left < canvasRect.width) {
             words.push(word)
@@ -26,16 +26,12 @@
 <div class="flex">
   <div class="m-auto max-w-screen-md w-full">
   <% @posts.each do |post| %>
-      <div class="p-4">
-        <% post.text.split("\n") do |line| %>
-          <div class="pt-1">
-          <% line.split do |word| %>
-
-          <span class="poetry"> <%= word %> </span>
-          <% end %>
-          </div>
-        <% end %>
-
+      <div class="pt-1 bg-white relative" style="height: 300px; width: 300px;">
+      <% JSON.load(post.text).each do |word| %>
+          <span class="poetry absolute" style="top: <%=word['top']%>px; left: <%=word['left']%>px;">
+            <%= word['text'] %>
+          </span>
+      <% end %>
       </div>
       <div class="flex bg-gray-200 p-2">
         <div class="text-left">by <%= link_to post.user.username, user_path(post.user) %> </div>
