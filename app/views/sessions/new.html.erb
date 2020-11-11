@@ -1,14 +1,14 @@
-<p id="alert"><%= alert %></p><h1>Login</h1><%= form_tag sessions_path do |form| %>
-  <div class="field">
-    <%= label_tag :username %>
-    <%= text_field_tag :username %>
-  </div>
-  <div class="field">
-    <%= label_tag :password %>
-    <%= password_field_tag :password %>
-  </div>
-  <div class="actions">
-    <%= submit_tag "Login" %>
-  </div>
+<div class="flex">
+<div class="m-auto border border-black bg-white p-4" style="max-width: 60%">
+<p id="alert" class="text-red-600 font-bold"><%= alert %></p>
+<%= form_with local: true, url: sessions_path do |form| %>
+  <%= form.label :username, "Username", class: 'block  text-sm font-bold mb-2' %>
+  <%= form.text_field :username, class: 'shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline' %> <br>
+  <%= form.label :password, "Password", class: 'block  text-sm font-bold mb-2' %>
+  <%= form.password_field :password, class: 'shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline mb-2' %> <br>
+  <%= form.submit "Login", class: "block poetry my-2" %>
+
 <% end %>
 
+</div>
+</div>
