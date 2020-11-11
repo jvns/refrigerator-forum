@@ -1,13 +1,10 @@
-<h1 class="text-4xl text-center py-8">
-  <span class="poetry">refrigerator</span><span class="poetry">poetry</span><span class="poetry">forum</span>
-</h1>
 
-<table>
-  <% @posts.each do |post| %>
-    <tr>
-      <td><%= post.title %></td>
-      <td><%= post.text %></td>
-      <td><%= link_to 'Show', post_path(post) %></td>
-    </tr>
+<div class="flex">
+  <div class="m-auto">
+  <% @topics.each do |topic| %>
+    <p class="text-2xl">
+      <%= link_to topic.title, topic_path(topic) %></td>
+    </p>
   <% end %>
-</table>
+  </div>
+</div>

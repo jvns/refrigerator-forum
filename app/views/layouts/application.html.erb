@@ -15,14 +15,20 @@
   </head>
 
   <body>
-    <nav class="text-right p-4">
-      <% if current_user %>
-        Logged in as <%=current_user.username%>
+
+    <nav class="md:grid grid-flow-col md:grid-cols-3 pt-2 pb-8">
+      <div class="md:col-start-3 text-right ">
+        <% if current_user %>
+          Logged in as <%=current_user.username%>
         <a class="poetry" href="/logout">Logout</a>
-      <% else %>
-        <a class="poetry" href="/login">Login</a>
-        <a class="poetry" href="/signup">Sign up</a>
-      <% end %>
+        <% else %>
+          <a class="poetry" href="/login">Login</a>
+          <a class="poetry" href="/signup">Sign up</a>
+        <% end %>
+      </div>
+      <h1 class="text-3xl text-center md:col-start-2">
+        <span class="poetry">refrigerator</span><span class="poetry">poetry</span><span class="poetry">forum</span>
+      </h1>
     </nav>
     <%= yield %>
   </body>
