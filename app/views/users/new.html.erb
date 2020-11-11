@@ -1,5 +1,16 @@
-<h1>New User</h1>
 
-<%= render 'form', user: @user %>
+<div class="flex">
+<div class="m-auto border border-black bg-white p-4" style="max-width: 60%">
+  Sign up for an account! We keep it simple: just a username & password, no email address.
+<%= form_with scope: :user, local: true, url: users_path do |form| %>
+  <%= form.label :name, "Username", class: 'block  text-sm font-bold mb-2' %>
+  <%= form.text_field :name, class: 'shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline' %> <br>
+  <%= form.label :password, "Password", class: 'block  text-sm font-bold mb-2' %>
+  <%= form.password_field :password, class: 'shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline' %> <br>
+  <%= form.label :password_confirmation, "Confirm password", class: 'block  text-sm font-bold mb-2' %>
+  <%= form.password_field :password_confirmation, class: 'shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline mb-2' %> <br>
+  <%= form.submit "Sign up", class: "block poetry my-2" %>
 
-<%= link_to 'Back', users_path %>
+<% end %>
+</div>
+</div>
