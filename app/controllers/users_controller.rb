@@ -31,7 +31,8 @@ class UsersController < ApplicationController
     #Pry.config.output = STDOUT
     #binding.pry
     if @user.save
-      redirect_to @user, notice: 'User was successfully created.'
+      session[:user_id] = @user.id
+      redirect_to '/', notice: 'User was successfully created.'
     else
       render :new
     end
