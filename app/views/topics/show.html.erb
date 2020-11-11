@@ -24,18 +24,18 @@
 <p id="notice"><%= notice %></p>
 
 <div class="pb-24">
-<h1 class="text-4xl text-bold text-center pb-4">Topic: <%= @topic.title %> </h1>
-<p class="mx-24">
+<h1 class="text-3xl text-bold text-center pb-4 mx-16">Poem topic: <%= @topic.title %> </h1>
+<p class="m-auto border border-black bg-white p-4" style="max-width: 60%">
 Here are some refrigerator poems! If you scroll to the bottom, you can add your own.
 </p>
 </div>
 <div class="flex">
-  <div class="m-auto max-w-screen-md w-full " style="width: 300px">
+  <div class="m-auto max-w-screen-md w-full " style="max-width: 300px">
   <% @posts.each do |post| %>
     <% box = post_box(post) %>
     <div class="pt-1 mt-8 mb-4 relative" style="
                               height: <%=box[:height]%>px;
-                              width: 300px;
+                              max-width: 300px;
                               /*
                               background: #eee;
                               background-image: url('/egg-shell.png');
@@ -66,7 +66,9 @@ Here are some refrigerator poems! If you scroll to the bottom, you can add your 
   <% @words.each do |word| %>
     <div class="draggable poetry cursor-pointer m-2" ><%= word %> </div>
   <% end %>
-  <div id="canvas" style="width: 300px; height: 300px; border: 1px dashed black;">
+  <div style="max-width: 320px;" class="my-4 pl-2 pr-4 box-border">
+  <div id="canvas" class="w-full" style="height: 300px; border: 1px dashed black;">
+  </div>
   </div>
 </div>
 
