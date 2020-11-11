@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     end
   end
   def destroy
-    slibreadline.so.7: cannot open shared object file: No such file or directoryession[:user_id] = nil
+    session.destroy
     redirect_to root_url, notice: "Logged out!"
   end
 end
