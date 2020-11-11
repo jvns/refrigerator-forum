@@ -56,6 +56,12 @@ Here are some refrigerator poems! If you scroll to the bottom, you can add your 
   <% end %>
 
 
+  <p class="text-2xl mt-8 mb-4">
+  Write your own poem!
+  </p>
+  <p class="my-2">
+  Drag words into the box with the dotted line and press "Post your poem" when you're done.
+  </p>
 <div id="post-box" class="relative">
   <% @words.each do |word| %>
     <div class="draggable poetry cursor-pointer m-2" ><%= word %> </div>
@@ -68,7 +74,7 @@ Here are some refrigerator poems! If you scroll to the bottom, you can add your 
   <p class="py-8">
     <input type="hidden" name="post[text]" id="poetry" />
     <%= hidden_field(:topic, :id) %>
-    <%= form.submit "Save post" %>
+    <%= form.submit "Post your poem" , class: 'poetry'%>
   </p>
 <% end %>
 

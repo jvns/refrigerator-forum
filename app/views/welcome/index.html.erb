@@ -1,10 +1,14 @@
 
 <div class="flex">
-  <div class="m-auto">
-  <% @topics.each do |topic| %>
-    <p class="text-2xl">
-      <%= link_to topic.title, topic_path(topic) %></td>
+  <div class="m-auto border border-black bg-white p-4" style="max-width: 60%">
+    <p class="py-2">
+    Here are the topics there are poems about so far:
     </p>
+    <ul class="ml-8">
+  <% @topics.each do |topic| %>
+    <li class="text-xl list-disc underline">
+      <%= link_to topic.title, topic_path(topic) %></td>
+    </li>
   <% end %>
   </div>
 </div>
