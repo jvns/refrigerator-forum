@@ -1,6 +1,3 @@
-<p id="notice"><%= notice %></p>
-
-<h1 class="text-4xl text-bold text-center"> <%= @topic.title %> </h1>
   <script>
   $( function() {
     $( ".draggable" ).draggable({ containment: "#post-box", scroll: false });
@@ -24,11 +21,20 @@
   } );
   
   </script>
+<p id="notice"><%= notice %></p>
+
+<div class="pb-24">
+<h1 class="text-4xl text-bold text-center pb-4">Topic: <%= @topic.title %> </h1>
+<p class="mx-24">
+Here are some refrigerator poems! If you scroll to the bottom, you can add your own.
+</p>
+</div>
 <div class="flex">
   <div class="m-auto max-w-screen-md w-full " style="width: 300px">
   <% @posts.each do |post| %>
-    <div class="pt-1 relative" style="
-                              height: 300px;
+    <% box = post_box(post) %>
+    <div class="pt-1 mt-8 mb-4 relative" style="
+                              height: <%=box[:height]%>px;
                               width: 300px;
                               /*
                               background: #eee;
@@ -36,13 +42,13 @@
                               background-size: 400px; */
                               
                 ">
-      <% JSON.load(post.text).each do |word| %>
-          <span class="poetry absolute" style="top: <%=word['top']%>px; left: <%=word['left']%>px;">
-            <%= word['text'] %>
+      <% box[:words].each do |word| %>
+          <span class="poetry absolute" style="top: <%=word[:top]%>px; left: <%=word[:left]%>px;">
+            <%= word[:text] %>
           </span>
       <% end %>
       </div>
-      <div class="flex bg-gray-700 p-2 text-white">
+      <div class="flex p-2 bg-white border border-black border-r-4 border-b-4">
         <div class="text-left">by <%= link_to post.user.username, user_path(post.user) %> </div>
         <div class="px-4"><%= link_to 'delete', post, :method => :delete, :confirm => "Are you sure?" %></div>
         <div class="text-right flex-grow"> <%= post.created_at.to_s(:short) %> </div>
