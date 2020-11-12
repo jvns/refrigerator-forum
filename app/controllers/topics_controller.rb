@@ -24,6 +24,8 @@ class TopicsController < ApplicationController
 
   # GET /topics/1/edit
   def edit
+    redirect_to '/', alert: "You can't edit topics"
+    return
   end
 
   # POST /topics
@@ -58,6 +60,8 @@ class TopicsController < ApplicationController
   # PATCH/PUT /topics/1
   # PATCH/PUT /topics/1.json
   def update
+    redirect_to '/', alert: "You can't edit topics"
+    return
     respond_to do |format|
       if @topic.update(topic_params)
         format.html { redirect_to @topic, notice: 'Topic was successfully updated.' }
@@ -73,7 +77,8 @@ class TopicsController < ApplicationController
   # DELETE /topics/1.json
   def destroy
     if current_user.username != 'julia'
-      format.html { redirect_to '/', notice: "You don't have permission to do that" }
+       redirect_to '/', notice: "You don't have permission to do that" 
+       return
     end
     @topic.posts.destroy_all
     @topic.destroy
