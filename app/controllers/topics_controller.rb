@@ -12,7 +12,9 @@ class TopicsController < ApplicationController
   def show
     @posts = @topic.posts.order(created_at: :asc).preload(:user)
 
-    @words = ["light", "nose", "count", "mix", "hunt", "never", "king", "metal", "west", "ice", "grass", "down", "crease", "which", "I", "edge", "also", "meat", "difficult", "teach", "indicate", "arrive", "afraid", "silver", "back", "talk", "cover", "body", "short", "stone", "molecule", "before", "sure", "small", "bit", "machine", "climb", "hair", "neck", "represent"]
+    base_words = ["ing", "the", "of", "to", "and", "a", "in", "is", "it", "you", "that", "was", "for", "on", "are", "with", "as", "I", "n", "ed", "s"]
+    @words = (JSON.load(@topic.words) + base_words).map{|x| x.strip}.sort.uniq
+    puts @words.inspect
   end
 
   # GET /topics/new
@@ -28,6 +30,13 @@ class TopicsController < ApplicationController
   # POST /topics.json
   def create
     @topic = Topic.new(topic_params)
+    words = @topic.words.split("\n").map {|x| x.strip}
+    if (words.size < 10)
+      flash[:alert] = "You need at least 10 words to create a poem topic"
+      render :new
+      return
+    end
+    @topic.words = JSON.dump(words)
 
     respond_to do |format|
       if @topic.save
@@ -57,9 +66,13 @@ class TopicsController < ApplicationController
   # DELETE /topics/1
   # DELETE /topics/1.json
   def destroy
+    if current_user.username != 'julia'
+      format.html { redirect_to '/', notice: "You don't have permission to do that" }
+    end
+    @topic.posts.destroy_all
     @topic.destroy
     respond_to do |format|
-      format.html { redirect_to topics_url, notice: 'Topic was successfully destroyed.' }
+      format.html { redirect_to '/', notice: 'Topic was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -72,6 +85,6 @@ class TopicsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def topic_params
-      params.require(:topic).permit(:title)
+      params.require(:topic).permit(:title, :words)
     end
 end

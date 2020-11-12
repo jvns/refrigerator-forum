@@ -1,5 +1,17 @@
-<h1>New Topic</h1>
+<div class="flex">
+<div class="m-auto border border-black bg-white p-4" style="max-width: 60%">
+  <p class="mb-4">
+  Create a new topic. You don't need to add basic words like "the" and "a" --
+  those will be added automatically.
+  </p>
+  <p class="mb-4">You can add up to 20 words. One word per line.</p>
+<%= form_with scope: :topic, local: true, url: topics_path do |form| %>
+  <%= form.label :title, "Topic name", class: 'block  text-sm font-bold mb-2' %>
+  <%= form.text_field :title, class: 'shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline mb-4' %> <br>
+  <%= form.label :words, "Word list", class: 'block  text-sm font-bold mb-2' %>
+  <%= form.text_area :words, rows: '30', placeholder:"turtle\nround\nshell", class: 'shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline mb-4' %> <br>
+  <%= form.submit "Create topic", class: "block poetry my-2" %>
 
-<%= render 'form', topic: @topic %>
-
-<%= link_to 'Back', topics_path %>
+<% end %>
+</div>
+</div>

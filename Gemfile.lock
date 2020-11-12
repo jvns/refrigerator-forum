@@ -193,7 +193,6 @@ DEPENDENCIES
   pry
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
-  rails-ujs
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)

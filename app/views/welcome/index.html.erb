@@ -6,9 +6,17 @@
     </p>
     <ul class="ml-8">
   <% @topics.each do |topic| %>
-    <li class="text-xl list-disc underline">
-      <%= link_to topic.title, topic_path(topic) %></td>
+    <li class="text-xl list-disc">
+      <%= link_to topic.title, topic_path(topic), class: 'underline' %>
+      <span class="text-sm">(<%=topic.posts.size%> <%='poem'.pluralize(topic.posts.size) %>) </span>
+    <% if current_user.username == 'julia' %>
+      <small class="pl-4">(<%= link_to 'delete', topic, :method => :delete, :confirm => "Are you sure?" %>)</small>
+    <% end %>
     </li>
   <% end %>
+    </ul>
+    <div class="mt-8">
+    <a class="poetry" href="/topics/new">Create a new topic</a>
+    </div>
   </div>
 </div>

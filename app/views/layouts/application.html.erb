@@ -45,12 +45,12 @@
     <div id="fridge" style="min-height: 800px;"> <!--  we need the fridge to be at least 800px high -->
     <nav class="pt-8 pb-8 pl-2" style="position: relative;">
     <div class="text-right mr-4">
-    <% if current_user %>
+       <% if current_user %>
            Logged in as <%=current_user.username%>
-         <a class="poetry" href="/logout">Logout</a>
+           <a class="poetry" href="/logout">Logout</a>
        <% else %>
-         <a class="poetry" href="/login">Login</a>
-         <a class="poetry" href="/signup">Sign up</a>
+           <a class="poetry" href="/login">Login</a>
+           <a class="poetry" href="/signup">Sign up</a>
        <% end %>
        </div>
        <h1 class="text-2xl text-center">
@@ -60,10 +60,16 @@
        </h1>
        </nav>
        <% if notice.present? %>
-       <p id="notice" style="max-height: 8em; width: 8em; transform: rotate(-6deg)" class="mb-4 shadow-md m-auto bg-yellow-200 p-3 text-center">
+       <p id="notice" style="max-height: 8em; width: 10em; transform: rotate(-6deg)" class="mb-4 shadow-md m-auto bg-yellow-200 p-3 text-center">
          <%= notice %>
        </p>
        <% end %>
+       <% if alert.present? %>
+       <p id="notice" style="max-height: 8em; width: 10em; transform: rotate(-6deg)" class="mb-4 shadow-md m-auto bg-red-200 p-3 text-center">
+         <%= alert %>
+       </p>
+       <% end %>
+
        <%= yield %>
        </div>
        <img src="/bottom.jpg" width=100%>
