@@ -4,7 +4,7 @@
   Create a new topic. You don't need to add basic words like "the" and "a" --
   those will be added automatically.
   </p>
-  <p class="mb-4">You can add up to 20 words. One word per line.</p>
+  <p class="mb-4">You can add up to 40 words. One word per line.</p>
 <%= form_with scope: :topic, local: true, url: topics_path do |form| %>
   <%= form.label :title, "Topic name", class: 'block  text-sm font-bold mb-2' %>
   <%= form.text_field :title, class: 'shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline mb-4' %> <br>

@@ -36,6 +36,12 @@ class TopicsController < ApplicationController
       render :new
       return
     end
+    if (words.size > 40)
+      flash[:alert] = "You can use at most 40 words. Right now you have #{words.size}"
+      render :new
+      return
+    end
+
     @topic.words = JSON.dump(words)
 
     respond_to do |format|
