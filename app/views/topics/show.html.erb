@@ -58,6 +58,7 @@ Here are some refrigerator poems! If you scroll to the bottom, you can add your 
   <p class="text-2xl mt-8 mb-4">
   Write your own poem!
   </p>
+  <% if current_user %>
   <p class="my-2">
   Drag words into the box with the dotted line and press "Post your poem" when you're done.
   </p>
@@ -77,6 +78,12 @@ Here are some refrigerator poems! If you scroll to the bottom, you can add your 
     <%= hidden_field(:topic, :id) %>
     <%= form.submit "Post your poem" , class: 'poetry'%>
   </p>
+<% end %>
+<% else %>
+       <p id="notice" style="max-height: 8em; width: 10em; transform: rotate(6deg)" class="mb-4 shadow-md m-auto bg-yellow-200 p-3 text-center">
+If you <a class="underline" href="/login">log in</a> or <a  class="underline" href="/signup">sign up</a>, you can write a poem here!
+</p>
+
 <% end %>
 
 </div>
