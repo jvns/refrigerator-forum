@@ -49,7 +49,6 @@ Here are some refrigerator poems! If you scroll to the bottom, you can add your 
       </div>
       <div class="flex p-2 bg-white border border-black border-r-4 border-b-4">
         <div class="text-left">by <%= link_to post.user.username, user_path(post.user) %> </div>
-        <div class="px-4"><%= link_to 'delete', post, :method => :delete, :confirm => "Are you sure?" %></div>
         <div class="text-right flex-grow"> <%= post.created_at.to_s(:short) %> </div>
       </div>
   <% end %>
