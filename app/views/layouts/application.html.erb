@@ -59,6 +59,11 @@
        </a>
        </h1>
        </nav>
+       <% if notice.present? %>
+       <p id="notice" style="max-height: 8em; width: 8em; transform: rotate(-6deg)" class="mb-4 shadow-md m-auto bg-yellow-200 p-3 text-center">
+         <%= notice %>
+       </p>
+       <% end %>
        <%= yield %>
        </div>
        <img src="/bottom.jpg" width=100%>
