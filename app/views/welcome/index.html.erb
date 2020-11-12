@@ -9,7 +9,7 @@
     <li class="text-xl list-disc">
       <%= link_to topic.title, topic_path(topic), class: 'underline' %>
       <span class="text-sm">(<%=topic.posts.size%> <%='poem'.pluralize(topic.posts.size) %>) </span>
-    <% if current_user.username == 'julia' %>
+    <% if current_user && current_user.username == 'julia' %>
       <small class="pl-4">(<%= link_to 'delete', topic, :method => :delete, :confirm => "Are you sure?" %>)</small>
     <% end %>
     </li>
