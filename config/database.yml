@@ -80,6 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: refrigerator_poetry_forum_production
-  username: refrigerator_poetry_forum
-  password: <%= ENV['REFRIGERATOR_POETRY_FORUM_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
