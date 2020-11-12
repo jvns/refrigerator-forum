@@ -20,6 +20,8 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    redirect_to '/', alert: "You can't edit users"
+    return
   end
 
   # POST /users
@@ -41,6 +43,8 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    redirect_to '/', alert: "You can't update users"
+    return
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
