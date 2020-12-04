@@ -26,10 +26,6 @@ COPY . .
 ##ENV GOOGLE_APPLICATION_CREDENTIALS=/usr/src/app/config/photo_album_runner.key
 #
 ## Setup Rails DB password passed on docker command line (see Cloud Build file)
-ARG DB_PWD
-ENV DATABASE_URL=${DB_PWD}
-RUN wget 
-
 #
 ## For now we don't have a Nginx/Apache frontend so tell 
 ## the Puma HTTP server to serve static content
@@ -40,6 +36,6 @@ RUN wget
 #ENV RAILS_LOG_TO_STDOUT=true
 #
 ## Designate the initial sript to run on container startup
-#RUN chmod +x /usr/src/app/entrypoint.sh
-#ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+RUN chmod +x /usr/src/app/entrypoint.sh
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
 #
