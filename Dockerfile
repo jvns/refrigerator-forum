@@ -1,6 +1,7 @@
 FROM ruby:2.6
 
 # Install MySQL client (needed for the connection to Google CloudSQL instance)
+RUN apt-get update
 RUN apt-get install -y postgresql-client
 
 # Install production dependencies (Gems installation in
