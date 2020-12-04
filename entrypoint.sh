@@ -13,6 +13,10 @@ cd /usr/src/app
 #> log/production.log
 #rm -f tmp/pids/server.pid
 
+./cloud_sql_proxy -instances=refrigerator-poetry:us-east4:refrigerator-poetry-db=tcp:5432 &
+
 # Run the web service on container startup
 # $PORT is provided as an environment variable by Cloud Run
-bundle exec rails server -e production -b 0.0.0.0 -p $PORT
+#export DATABASE_URL="postgres://myuser:mypass@localhost/somedatabase"
+export DATABASE_URL="postgres://postgres@localhost/postgres"
+bundle exec rails server -e production -b 0.0.0.0 -p 8080
