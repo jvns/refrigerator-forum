@@ -12,6 +12,8 @@ RUN gem install bundler
 ENV BUNDLE_FROZEN=true
 RUN bundle install
 RUN wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+RUN wget https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz
+RUN tar -xzf google-cloud-sdk.tar.gz
 RUN chmod +x cloud_sql_proxy
 #
 ## Copy application code to the container image.
