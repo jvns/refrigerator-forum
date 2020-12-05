@@ -3,6 +3,11 @@ provider "google" {
   region  = "us-east4"
 }
 
+resource "google_project_iam_policy" "project" {
+  project     = "refrigerator-poetry"
+  policy_data = data.google_iam_policy.fridge.policy_data
+}
+
 resource "google_cloud_run_service" "default" {
   autogenerate_revision_name = true
   location                   = "us-east4"
@@ -57,9 +62,9 @@ resource "google_service_account" "fridge" {
 
 data "google_iam_policy" "fridge" {
   binding {
-    role = "roles/secretmanager.secretAccessor"
+    role = "roles/cloudsql.client"
     members = [
-      google_service_account.fridge.id
+      "serviceAccount:${google_service_account.fridge.email}"
     ]
   }
 }
