@@ -4,25 +4,43 @@ provider "google" {
 }
 
 resource "google_cloud_run_service" "default" {
-  name     = "refrigerator-poetry"
-  location = "us-east4"
+    autogenerate_revision_name = false
+    location                   = "us-east4"
+    name                       = "refrigerator-poetry"
+    template {
+        spec {
+            container_concurrency = 80
+            service_account_name  = "847645721792-compute@developer.gserviceaccount.com"
+            timeout_seconds       = 300
 
-  template {
-    spec {
-      containers {
-        image = "us.gcr.io/refrigerator-poetry/refrigerator-forum/refrigerator-poetry"
-      }
+            containers {
+                image   = "us.gcr.io/refrigerator-poetry/refrigerator-forum/refrigerator-poetry:latest"
+
+                ports {
+                    container_port = 8080
+                }
+
+                resources {
+                    limits   = {
+                        "cpu"    = "1000m"
+                        "memory" = "256Mi"
+                    }
+                    requests = {}
+                }
+            }
+        }
     }
-  }
 
-  traffic {
-    percent         = 100
-    latest_revision = true
-  }
+    timeouts {}
+
+    traffic {
+        latest_revision = true
+        percent         = 100
+    }
 }
 
 resource "google_sql_database_instance" "instance" {
-  name   = "fridge-db"
+  name   = "refrigerator-db"
   region = "us-east4"
   database_version = "POSTGRES_13"
   settings {
@@ -39,8 +57,8 @@ resource "google_service_account" "fridge" {
 
 data "google_iam_policy" "fridge" {
   binding {
-    role = "roles/cloudsql.editor"
-members = []
+    role = "roles/cloudsql.client"
+    members = []
   }
 }
 
@@ -48,3 +66,8 @@ resource "google_service_account_iam_policy" "fridge-account-iam" {
   service_account_id = google_service_account.fridge.name
   policy_data        = data.google_iam_policy.fridge.policy_data
 }
+
+
+#resource "google_secret_manager_secret" "railsmaster" {
+#  secret_id = "rails-master-key"
+#}
