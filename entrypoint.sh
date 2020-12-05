@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -eu
 
 cd /usr/src/app
 
@@ -6,6 +7,7 @@ export PATH=$PATH:$PWD/google-cloud-sdk/bin/
 
 gcloud config set project refrigerator-poetry
 echo "================================================================"
+gcloud --project refrigerator-poetry secrets versions access latest --secret="rails-master-key"
 gcloud --project refrigerator-poetry secrets versions access latest --secret="rails-master-key" > config/master.key
 
 # Create the Rails production DB on first run
