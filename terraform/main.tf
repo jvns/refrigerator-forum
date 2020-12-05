@@ -16,7 +16,7 @@ resource "google_cloud_run_service" "default" {
     spec {
       container_concurrency = 80
       service_account_name = google_service_account.fridge.email
-      timeout_seconds       = 300
+      timeout_seconds       = 299
 
       containers {
         image = "us.gcr.io/refrigerator-poetry/refrigerator-forum/refrigerator-poetry:cd0bb5b5cc945f8e5ec495d957fac488f0647518"
