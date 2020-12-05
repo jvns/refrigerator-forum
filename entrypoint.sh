@@ -23,7 +23,7 @@ export DATABASE_URL="postgres://postgres:$PASSWORD@localhost:5432/postgres"
 RAILS_ENV=production bundle exec rake db:create
 # Make sure we are using the most up to date
 # database schema
-RAILS_ENV=production bundle exec rake db:migrate
+#RAILS_ENV=production bundle exec rake db:migrate
 
 # Run the web service on container startup
 # $PORT is provided as an environment variable by Cloud Run
