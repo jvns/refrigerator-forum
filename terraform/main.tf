@@ -10,7 +10,7 @@ resource "google_cloud_run_service" "default" {
   template {
     spec {
       container_concurrency = 80
-      service_account_name  = "847645721792-compute@developer.gserviceaccount.com"
+      service_account_name = google_service_account.fridge.email
       timeout_seconds       = 300
 
       containers {
