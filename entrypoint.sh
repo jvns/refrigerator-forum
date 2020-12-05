@@ -21,7 +21,7 @@ gcloud --project refrigerator-poetry secrets versions access latest --secret="ra
 #> log/production.log
 #rm -f tmp/pids/server.pid
 
-./cloud_sql_proxy -instances=refrigerator-poetry:us-east4:refrigerator-poetry-db=tcp:5432 &
+./cloud_sql_proxy -instances=refrigerator-poetry:us-east4:refrigerator-db=tcp:5432 &
 
 # Run the web service on container startup
 # $PORT is provided as an environment variable by Cloud Run
