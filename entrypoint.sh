@@ -26,5 +26,5 @@ RAILS_ENV=production bundle exec rake db:migrate
 # Run the web service on container startup
 # $PORT is provided as an environment variable by Cloud Run
 #export DATABASE_URL="postgres://myuser:mypass@localhost/somedatabase"
-export DATABASE_URL="postgres://postgres@localhost/postgres"
+export DATABASE_URL="postgres://postgres@localhost:5432/postgres"
 bundle exec rails server -e production -b 0.0.0.0 -p 8080
