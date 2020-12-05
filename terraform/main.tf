@@ -57,17 +57,29 @@ resource "google_service_account" "fridge" {
 
 data "google_iam_policy" "fridge" {
   binding {
-    role    = "roles/cloudsql.client"
-    members = []
+    role = "roles/secretmanager.secretAccessor"
+    members = [
+      google_service_account.fridge.id
+    ]
   }
 }
 
-resource "google_service_account_iam_policy" "fridge-account-iam" {
-  service_account_id = google_service_account.fridge.name
-  policy_data        = data.google_iam_policy.fridge.policy_data
+resource "google_secret_manager_secret" "railsmaster" {
+  secret_id = "rails-master-key"
+  replication {
+    user_managed {
+      replicas {
+        location = "us-east4"
+      }
+    }
+  }
 }
 
-
-#resource "google_secret_manager_secret" "railsmaster" {
-#  secret_id = "rails-master-key"
-#}
+resource "google_secret_manager_secret_iam_binding" "binding" {
+  project   = "refrigerator-poetry"
+  secret_id = google_secret_manager_secret.railsmaster.secret_id
+  role      = "roles/secretmanager.secretAccessor"
+  members = [
+    "serviceAccount:${google_service_account.fridge.email}"
+  ]
+}
