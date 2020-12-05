@@ -69,6 +69,19 @@ data "google_iam_policy" "fridge" {
   }
 }
 
+
+resource "google_secret_manager_secret" "dbpassword" {
+  secret_id = "postgres-password"
+  replication {
+    user_managed {
+      replicas {
+        location = "us-east4"
+      }
+    }
+  }
+}
+
+
 resource "google_secret_manager_secret" "railsmaster" {
   secret_id = "rails-master-key"
   replication {
@@ -83,6 +96,14 @@ resource "google_secret_manager_secret" "railsmaster" {
 resource "google_secret_manager_secret_iam_binding" "binding" {
   project   = "refrigerator-poetry"
   secret_id = google_secret_manager_secret.railsmaster.secret_id
+  role      = "roles/secretmanager.secretAccessor"
+  members = [
+    "serviceAccount:${google_service_account.fridge.email}"
+  ]
+}
+resource "google_secret_manager_secret_iam_binding" "binding2" {
+  project   = "refrigerator-poetry"
+  secret_id = google_secret_manager_secret.dbpassword.secret_id
   role      = "roles/secretmanager.secretAccessor"
   members = [
     "serviceAccount:${google_service_account.fridge.email}"

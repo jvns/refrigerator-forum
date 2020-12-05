@@ -18,7 +18,8 @@ gcloud --project refrigerator-poetry secrets versions access latest --secret="ra
 
 ./cloud_sql_proxy -instances=refrigerator-poetry:us-east4:refrigerator-db=tcp:5432 &
 # Create the Rails production DB on first run
-export DATABASE_URL="postgres://postgres@localhost:5432/postgres"
+PASSWORD=$(gcloud --project refrigerator-poetry secrets versions access latest --secret="postgres-password")
+export DATABASE_URL="postgres://postgres:$PASSWORD@localhost:5432/postgres"
 RAILS_ENV=production bundle exec rake db:create
 # Make sure we are using the most up to date
 # database schema
